@@ -6,4 +6,24 @@ author: "Blake Lucas & Brendan Davis"
 # Project Description
 {description of project}
 
-# title
++ Iouzipcodes
+```{r}
+site <- "iouzipcodes2015.csv"
+iouZips <- read.csv(file = site)
+head(iouZips, n = 5) # show first five rows
+```
+
++ NonIouzipcodes
+```{r}
+site <- "noniouzipcodes2015.csv"
+NonIouZips <- read.csv(file = site)
+head(NonIouZips, n = 5) # show first five rows
+```
+
++ ZipCode latitude and longitation
+```{r}
+site <- "zipcodelatlon.csv"
+zipsLocation <- read.csv(file = site)
+head(zipsLocation, n = 5) # show first five rows
+```
+
