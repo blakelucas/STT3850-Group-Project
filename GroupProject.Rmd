@@ -7,23 +7,47 @@ author: "Blake Lucas & Brendan Davis"
 {description of project}
 
 + Iouzipcodes
-```{r}
+```{r, include=FALSE, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+```{r, echo=FALSE}
+
 site <- "iouzipcodes2015.csv"
 iouZips <- read.csv(file = site)
-head(iouZips, n = 5) # show first five rows
+head(iouZips, n = 1) # show first five rows
+
+#number of iouZips by state
+iouZips %>% 
+	group_by(state) %>% 
+	summarise(count = n()) %>% 
+	ggplot(aes(x = reorder(state,(-count)), y = count)) + 
+		geom_bar(stat = 'identity')
 ```
 
 + NonIouzipcodes
-```{r}
+```{r, echo=FALSE}
 site <- "noniouzipcodes2015.csv"
-NonIouZips <- read.csv(file = site)
-head(NonIouZips, n = 5) # show first five rows
+nonIouZips <- read.csv(file = site)
+head(nonIouZips, n = 1) # show first five rows
+
+#number of noniouZips by state
+nonIouZips %>% 
+	group_by(state) %>% 
+	summarise(count = n()) %>% 
+	ggplot(aes(x = reorder(state,(-count)), y = count)) + 
+		geom_bar(stat = 'identity')
 ```
 
 + ZipCode latitude and longitation
-```{r}
+```{r, echo=FALSE}
 site <- "zipcodelatlon.csv"
 zipsLocation <- read.csv(file = site)
 head(zipsLocation, n = 5) # show first five rows
+
+
+#TODO: Exlpore heatmap possibility
+
+#TODO: Get a hypothesis for our data before we get too far
 ```
 
