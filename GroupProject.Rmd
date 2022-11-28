@@ -8,6 +8,7 @@ author: "Blake Lucas & Brendan Davis"
 
 + Iouzipcodes
 ```{r, include=FALSE, echo=FALSE}
+library(gtools) #used for binomial search of zip code lat/lon
 library(dplyr)
 library(ggplot2)
 ```
@@ -45,6 +46,22 @@ site <- "zipcodelatlon.csv"
 zipsLocation <- read.csv(file = site)
 head(zipsLocation, n = 5) # show first five rows
 
+#These two functions allow you to search a zipcodes Latitude, first is a helper function
+subFun <- function(x) {
+  return (zipsLocation$ZIP[[x]])
+}
+#zipsLocation$LAT[[binsearch(fun = subFun, range = c(1,length(zipsLocation)), target = 602)$where]]
+findLat <- function(zip)
+{
+  i <- zipsLocation$LAT[[binsearch(fun = subFun, range = c(1,nrow(zipsLocation)), target = zip)$where]]
+  return (i)
+} 
+
+#(fun = subFun, range = c(1,nrow(zipsLocation)), target = 1010)$where
+
+iouZipsLoc <- 
+  mutate(iouZips, lat = findLat(zip))
+head(iouZipsLoc)
 
 #TODO: Exlpore heatmap possibility
 
