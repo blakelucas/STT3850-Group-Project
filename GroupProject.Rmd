@@ -150,6 +150,14 @@ ggplot(allZipsLoc, aes(x=res_rate)) +
             color="orange", linetype="dashed", size=1) +
   xlim(.001,.38)
 
+
+
+```
+
+
+Second ggplot section
+```{r, echo=FALSE}
+
 ```
 
 Hypothesis Testing
