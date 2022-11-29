@@ -16,7 +16,7 @@ library(ggplot2)
 
 site <- "iouzipcodes2015.csv"
 iouZips <- read.csv(file = site)
-head(iouZips, n = 1) # show first five rows
+head(iouZips, n = 10) # show first five rows
 
 #number of iouZips by state
 iouZips %>% 
@@ -50,29 +50,52 @@ head(zipsLocation, n = 5) # show first five rows
 subFun <- function(x) {
   return (zipsLocation$ZIP[[x]])
 }
-#zipsLocation$LAT[[binsearch(fun = subFun, range = c(1,length(zipsLocation)), target = 602)$where]]
 findLat <- function(zip)
 {
-  i <- zipsLocation$LAT[[binsearch(fun = subFun, range = c(1,nrow(zipsLocation)), target = zip)$where]]
+  i <- zipsLocation$Latitude[[binsearch(fun = subFun, range = c(1,nrow(zipsLocation)), target = zip)$where[1]]]
+  return (i)
+} 
+findLon <- function(zip)
+{
+  i <- zipsLocation$Longitude[[binsearch(fun = subFun, range = c(1,nrow(zipsLocation)), target = zip)$where[1]]]
   return (i)
 } 
 
-#floor(max(c(1,nrow(zipsLocation))))
-#(fun = subFun, range = c(1,nrow(zipsLocation)), target = 1010)$where
-findLat(33140)
-
+#First iouZips
 iouZipsLoc <- 
-  mutate(iouZips, lat = -1)
-nrow(iouZipsLoc)
+  mutate(iouZips, lat = -1, lon = -1)
+#nrow(iouZipsLoc)
 for (i in 1:52614)
 {
   iouZipsLoc$lat[[i]] <- findLat(iouZipsLoc$zip[[i]])
+  iouZipsLoc$lon[[i]] <- findLon(iouZipsLoc$zip[[i]])
 }
-head(iouZipsLoc)
-iouZipsLoc$lat[[1]] <- findLat(iouZipsLoc$zip[[1]])
-iouZipsLoc$lat[[2]] <- findLat(iouZipsLoc$zip[[2]])
+#Then nonIouZips
+nonIouZipsLoc <- 
+  mutate(nonIouZips, lat = -1, lon = -1)
+nrow(nonIouZips)
+for (i in 1:34014)
+{
+  nonIouZipsLoc$lat[[i]] <- findLat(nonIouZipsLoc$zip[[i]])
+  nonIouZipsLoc$lon[[i]] <- findLon(nonIouZipsLoc$zip[[i]])
+}
+
+
+
+head(iouZipsLoc, 2)
+head(nonIouZips, 2)
 #TODO: Get a hypothesis for our data before we get too far
 ```
+
+
+
+
+
+
+
+
+
+
 
 Coordinate Heatmap
 ```{r}
