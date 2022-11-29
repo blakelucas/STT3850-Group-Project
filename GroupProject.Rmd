@@ -83,16 +83,24 @@ for (i in 1:34014)
 
 
 head(iouZipsLoc, 2)
-head(nonIouZips, 2)
+head(nonIouZipsLoc, 2)
+
+allZipsLoc <- rbind(iouZipsLoc, nonIouZipsLoc)
+allZipsLoc
+
+write.csv(allZipsLoc, "./zipData.csv", row.names = FALSE)
 #TODO: Get a hypothesis for our data before we get too far
 ```
 
 
+Ggplot stuff
+```{r}
 
+#nonIouZipsLocFilter <- filter(nonIouZipsLoc, state != )
+ggplot(data = nonIouZipsLocFilter, aes(lon, lat, color = state)) + 
+  geom_point(alpha = 1/10)
 
-
-
-
+```
 
 
 
