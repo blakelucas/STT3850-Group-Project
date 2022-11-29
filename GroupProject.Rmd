@@ -102,10 +102,8 @@ ggplot(data = nonIouZipsLocFilter, aes(lon, lat, color = state)) +
 
 ```
 
-
-
-
 Coordinate Heatmap
+
 ```{r}
 # References: 
 # https://axelhodler.medium.com/creating-a-heat-map-from-coordinates-using-r-780db4901075
@@ -117,10 +115,12 @@ library(RColorBrewer)
 
 # Make table of just coordinates
 coords.data <- read.csv(file="./zipData.csv")
-coords.data <- subset(coords.data, select=-c(ZIP))
+coords.data <- subset(coords.data, select=c(lat,lon))
+names(coords.data)[names(coords.data) == 'lon'] <- 'Longitude'
+names(coords.data)[names(coords.data) == 'lat'] <- 'Latitude'
 
 # Define bounds of USA
-map_bounds <- c(left = -124.74, bottom = 24.53, right = -66.95, top = 49.4)
+map_bounds <- c(left = -124.8, bottom = 24.6, right = -67, top = 49.5)
 
 # Configure map, bounds, zoom, & style
 coords.map <- get_stamenmap(map_bounds, zoom=7, maptype="toner-lite")
@@ -133,8 +133,45 @@ coords.map <- coords.map +   scale_fill_gradientn(colours=rev(brewer.pal(7, "Spe
 # Output map
 coords.map <- coords.map + theme_bw()
 ggsave(filename="./heat.png")
-
-
 ```
 
 ![alt text here](./heat.png)
+
+Plotting Rates
+```{r}
+
+# Rate histograms
+
+# Commercial
+ggplot(allZipsLoc, aes(x=comm_rate)) +
+  geom_histogram(bins=150) +
+  geom_vline(aes(xintercept=mean(comm_rate)),
+            color="orange", linetype="dashed", size=1) +
+  xlim(.001,.4)
+
+# Industrial
+ggplot(allZipsLoc, aes(x=ind_rate)) +
+  geom_histogram(bins=150) +
+  geom_vline(aes(xintercept=mean(ind_rate)),
+            color="orange", linetype="dashed", size=1) +
+  xlim(.001,.4)
+
+# Residential
+ggplot(allZipsLoc, aes(x=res_rate)) +
+  geom_histogram(bins=150) +
+  geom_vline(aes(xintercept=mean(res_rate)),
+            color="orange", linetype="dashed", size=1) +
+  xlim(.001,.38)
+
+```
+
+Hypothesis Testing
+
+```{r}
+
+library(tidyverse)
+library(infer)
+
+
+
+```
