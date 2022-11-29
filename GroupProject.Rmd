@@ -157,7 +157,12 @@ ggplot(allZipsLoc, aes(x=res_rate)) +
 
 Second ggplot section
 ```{r, echo=FALSE}
+allZipsLoc %>%
+  filter(service_type == "Energy") %>%
+  count()
 
+ggplot(data = allZipsLoc, aes(y =  (comm_rate + ind_rate + res_rate)/3)) +
+  geom_boxplot()
 ```
 
 Hypothesis Testing
