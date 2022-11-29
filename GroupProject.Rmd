@@ -90,8 +90,8 @@ write.csv(allZipsLoc, "./zipData.csv", row.names = FALSE)
 
 
 Coordinate Heatmap
-
 ```{r, echo=FALSE, eval=FALSE}
+>>>>>>> c9f1ce20223d61870ccc9e69ecf55aa7e5b72a47
 # References: 
 # https://axelhodler.medium.com/creating-a-heat-map-from-coordinates-using-r-780db4901075
 # https://github.com/axelhodler/heator/blob/master/README.md
@@ -131,7 +131,8 @@ allZipsLoc <- read.csv(file = "zipData.csv")
 
 # Commercial
 ggplot(allZipsLoc, aes(x=comm_rate)) +
-  geom_histogram(bins=150) +
+  geom_histogram(aes(y=..density..), bins=150) +
+  geom_density(alpha=.2, color="dodgerblue1") +
   geom_vline(aes(xintercept=mean(comm_rate)),
             color="orange", linetype="dashed", size=1) +
   xlim(.001,.4)
@@ -161,11 +162,10 @@ Second ggplot section
 ```
 
 Hypothesis Testing
-
 ```{r}
-
 library(tidyverse)
 library(infer)
+
 
 
 
