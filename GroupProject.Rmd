@@ -107,15 +107,6 @@ ggplot(data = nonIouZipsLocFilter, aes(lon, lat, color = state)) +
 
 Coordinate Heatmap
 ```{r}
-# !! NOTE: !!
-# This is currently just plotting ALL of the zip code coordinates in the
-#  zip lat lon CSV. Need to apply those coordinates to each
-#  row of our main data based on ZIP
-#
-#  The arithmetic for the heat map is commented out since it may
-#  take a while to run.
-
-
 # References: 
 # https://axelhodler.medium.com/creating-a-heat-map-from-coordinates-using-r-780db4901075
 # https://github.com/axelhodler/heator/blob/master/README.md
@@ -125,7 +116,7 @@ library(ggmap)
 library(RColorBrewer)
 
 # Make table of just coordinates
-coords.data <- read.csv(file="./zipcodelatlon.csv")
+coords.data <- read.csv(file="./zipData.csv")
 coords.data <- subset(coords.data, select=-c(ZIP))
 
 # Define bounds of USA
