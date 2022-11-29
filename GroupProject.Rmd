@@ -90,6 +90,19 @@ allZipsLoc
 
 write.csv(allZipsLoc, "./zipData.csv", row.names = FALSE)
 #TODO: Get a hypothesis for our data before we get too far
+
+df_names <- c(allZipsLoc$zip) # yours dataframes names character vector
+lst <- list()
+for (i in df_names) {
+  lst[i] <- list(get(i))
+}
+
+#Extra processing to compact our tax csv
+tax19zipLarge <- read.csv(file = "./19zpallagi.csv")
+tax19zipSmall <- tax19zipLarge %>%
+  select('STATE','zipcode','agi_stub','A18300','A00100', 'N2','SCHF','A03220') %>%
+  filter(zipcode != 0)
+write.csv(tax19zipSmall, "./taxData19.csv")
 ```
 
 
