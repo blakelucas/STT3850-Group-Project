@@ -90,10 +90,6 @@ write.csv(allZipsLoc, "./zipData.csv", row.names = FALSE)
 
 
 Coordinate Heatmap
-<<<<<<< HEAD
-```{r}
-=======
-
 ```{r, echo=FALSE, eval=FALSE}
 >>>>>>> c9f1ce20223d61870ccc9e69ecf55aa7e5b72a47
 # References: 
