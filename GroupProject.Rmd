@@ -63,8 +63,46 @@ iouZipsLoc <-
   mutate(iouZips, lat = findLat(zip))
 head(iouZipsLoc)
 
-#TODO: Exlpore heatmap possibility
-
 #TODO: Get a hypothesis for our data before we get too far
+```
+
+Coordinate Heatmap
+```{r}
+# !! NOTE: !!
+# This is currently just plotting ALL of the zip code coordinates in the
+#  zip lat lon CSV. Need to apply those coordinates to each
+#  row of our main data based on ZIP
+#
+#  The arithmetic for the heat map is commented out since it may
+#  take a while to run.
+
+
+# References: 
+# https://axelhodler.medium.com/creating-a-heat-map-from-coordinates-using-r-780db4901075
+# https://github.com/axelhodler/heator/blob/master/README.md
+# http://maps.stamen.com/#terrain/12/37.7706/-122.3782
+
+library(ggmap)
+library(RColorBrewer)
+
+# Make table of just coordinates
+coords.data <- read.csv(file="./zipcodelatlon.csv")
+coords.data <- subset(coords.data, select=-c(ZIP))
+
+# Define bounds of USA
+map_bounds <- c(left = -124.74, bottom = 24.53, right = -66.95, top = 49.4)
+
+# Configure map, bounds, zoom, & style
+coords.map <- get_stamenmap(map_bounds, zoom=7, maptype="toner-lite")
+
+# Logic for rendering heatmap
+coords.map <- ggmap(coords.map, extent="device", legend="none")
+coords.map <- coords.map + stat_density2d(data=coords.data,  aes(x=Longitude, y=Latitude, fill=..level.., alpha=..level..), geom="polygon")
+coords.map <- coords.map +   scale_fill_gradientn(colours=rev(brewer.pal(7, "Spectral")))
+
+# Output map
+coords.map <- coords.map + theme_bw()
+ggsave(filename="./heat.png")
+
 ```
 
