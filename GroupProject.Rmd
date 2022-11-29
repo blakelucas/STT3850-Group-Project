@@ -57,12 +57,20 @@ findLat <- function(zip)
   return (i)
 } 
 
+#floor(max(c(1,nrow(zipsLocation))))
 #(fun = subFun, range = c(1,nrow(zipsLocation)), target = 1010)$where
+findLat(33140)
 
 iouZipsLoc <- 
-  mutate(iouZips, lat = findLat(zip))
+  mutate(iouZips, lat = -1)
+nrow(iouZipsLoc)
+for (i in 1:52614)
+{
+  iouZipsLoc$lat[[i]] <- findLat(iouZipsLoc$zip[[i]])
+}
 head(iouZipsLoc)
-
+iouZipsLoc$lat[[1]] <- findLat(iouZipsLoc$zip[[1]])
+iouZipsLoc$lat[[2]] <- findLat(iouZipsLoc$zip[[2]])
 #TODO: Get a hypothesis for our data before we get too far
 ```
 
@@ -104,5 +112,7 @@ coords.map <- coords.map +   scale_fill_gradientn(colours=rev(brewer.pal(7, "Spe
 coords.map <- coords.map + theme_bw()
 ggsave(filename="./heat.png")
 
+
 ```
 
+![alt text here](./heat.png)
