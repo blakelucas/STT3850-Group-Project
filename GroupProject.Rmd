@@ -12,8 +12,7 @@ library(gtools) #used for binomial search of zip code lat/lon
 library(dplyr)
 library(ggplot2)
 ```
-```{r, echo=FALSE}
-
+```{r, echo=FALSE, eval=FALSE}
 site <- "iouzipcodes2015.csv"
 iouZips <- read.csv(file = site)
 head(iouZips, n = 10) # show first five rows
@@ -25,9 +24,8 @@ iouZips %>%
 	ggplot(aes(x = reorder(state,(-count)), y = count)) + 
 		geom_bar(stat = 'identity')
 ```
-
 + NonIouzipcodes
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 site <- "noniouzipcodes2015.csv"
 nonIouZips <- read.csv(file = site)
 head(nonIouZips, n = 1) # show first five rows
@@ -41,7 +39,7 @@ nonIouZips %>%
 ```
 
 + ZipCode latitude and longitation
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 site <- "zipcodelatlon.csv"
 zipsLocation <- read.csv(file = site)
 head(zipsLocation, n = 5) # show first five rows
@@ -80,44 +78,20 @@ for (i in 1:34014)
   nonIouZipsLoc$lon[[i]] <- findLon(nonIouZipsLoc$zip[[i]])
 }
 
-
-
 head(iouZipsLoc, 2)
 head(nonIouZipsLoc, 2)
 
 allZipsLoc <- rbind(iouZipsLoc, nonIouZipsLoc)
-allZipsLoc
+
 
 write.csv(allZipsLoc, "./zipData.csv", row.names = FALSE)
 #TODO: Get a hypothesis for our data before we get too far
-
-df_names <- c(allZipsLoc$zip) # yours dataframes names character vector
-lst <- list()
-for (i in df_names) {
-  lst[i] <- list(get(i))
-}
-
-#Extra processing to compact our tax csv
-tax19zipLarge <- read.csv(file = "./19zpallagi.csv")
-tax19zipSmall <- tax19zipLarge %>%
-  select('STATE','zipcode','agi_stub','A18300','A00100', 'N2','SCHF','A03220') %>%
-  filter(zipcode != 0)
-write.csv(tax19zipSmall, "./taxData19.csv")
 ```
 
-
-Ggplot stuff
-```{r}
-
-#nonIouZipsLocFilter <- filter(nonIouZipsLoc, state != )
-ggplot(data = nonIouZipsLocFilter, aes(lon, lat, color = state)) + 
-  geom_point(alpha = 1/10)
-
-```
 
 Coordinate Heatmap
 
-```{r}
+```{r, echo=FALSE, eval=FALSE}
 # References: 
 # https://axelhodler.medium.com/creating-a-heat-map-from-coordinates-using-r-780db4901075
 # https://github.com/axelhodler/heator/blob/master/README.md
@@ -152,7 +126,7 @@ ggsave(filename="./heat.png")
 
 Plotting Rates
 ```{r}
-
+allZipsLoc <- read.csv(file = "zipData.csv")
 # Rate histograms
 
 # Commercial
