@@ -116,7 +116,6 @@ ggplot(data = nonIouZipsLocFilter, aes(lon, lat, color = state)) +
 ```
 
 Coordinate Heatmap
-
 ```{r}
 # References: 
 # https://axelhodler.medium.com/creating-a-heat-map-from-coordinates-using-r-780db4901075
@@ -157,7 +156,8 @@ Plotting Rates
 
 # Commercial
 ggplot(allZipsLoc, aes(x=comm_rate)) +
-  geom_histogram(bins=150) +
+  geom_histogram(aes(y=..density..), bins=150) +
+  geom_density(alpha=.2, color="dodgerblue1") +
   geom_vline(aes(xintercept=mean(comm_rate)),
             color="orange", linetype="dashed", size=1) +
   xlim(.001,.4)
@@ -179,11 +179,10 @@ ggplot(allZipsLoc, aes(x=res_rate)) +
 ```
 
 Hypothesis Testing
-
 ```{r}
-
 library(tidyverse)
 library(infer)
+
 
 
 
