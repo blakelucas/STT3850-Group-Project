@@ -91,7 +91,6 @@ write.csv(allZipsLoc, "./zipData.csv", row.names = FALSE)
 
 Coordinate Heatmap
 ```{r, echo=FALSE, eval=FALSE}
->>>>>>> c9f1ce20223d61870ccc9e69ecf55aa7e5b72a47
 # References: 
 # https://axelhodler.medium.com/creating-a-heat-map-from-coordinates-using-r-780db4901075
 # https://github.com/axelhodler/heator/blob/master/README.md
