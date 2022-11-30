@@ -188,19 +188,24 @@ comm_rate_list <- allZipsLoc %>%
   group_by(ownership) %>%
   summarise_at(vars(comm_rate), list(name = mean))
 
-comm_rate_list
-
 ind_rate_list <- allZipsLoc %>%
   group_by(ownership) %>%
   summarise_at(vars(ind_rate), list(name = mean))
-
-ind_rate_list
 
 res_rate_list <- allZipsLoc %>%
   group_by(ownership) %>%
   summarise_at(vars(res_rate), list(name = mean))
 
-res_rate_list
+# Build vector of above values, alternating
+vals <- c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+count<-1
+for(i in seq(1, 19, 3))
+{
+  vals[[i]] <- comm_rate_list$name[[count]]
+  vals[[i+1]] <- ind_rate_list$name[[count]]
+  vals[[i+2]] <- res_rate_list$name[[count]]
+  count<-count+1
+}
 
 box_df <- data.frame(x = vals, 
                    grp = rep(c("inv owned", "coop", "federal",
@@ -214,6 +219,7 @@ box_df <- data.frame(x = vals,
 ggplot(box_df,aes(x = grp, y = x, fill = subgroup)) +
 geom_bar(stat = "identity", position = "dodge")
 ```
+
 Hypothesis Testing
 ```{r}
 library(tidyverse)
