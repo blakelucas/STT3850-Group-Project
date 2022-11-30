@@ -165,6 +165,55 @@ ggplot(data = allZipsLoc, aes(y =  (comm_rate + ind_rate + res_rate)/3)) +
   geom_boxplot()
 ```
 
+Boxplots by ownership
+```{r}
+# ------------------------------------
+
+# Commercial
+ggplot(allZipsLoc, aes(x=ownership, y=comm_rate)) +
+  geom_boxplot()
+
+# Industrial
+ggplot(allZipsLoc, aes(x=ownership, y=ind_rate)) +
+  geom_boxplot()
+
+# Residential
+ggplot(allZipsLoc, aes(x=ownership, y=res_rate)) +
+  geom_boxplot()
+
+# -------------------------------------
+
+# Grouped bar plot by ownership
+comm_rate_list <- allZipsLoc %>%
+  group_by(ownership) %>%
+  summarise_at(vars(comm_rate), list(name = mean))
+
+comm_rate_list
+
+ind_rate_list <- allZipsLoc %>%
+  group_by(ownership) %>%
+  summarise_at(vars(ind_rate), list(name = mean))
+
+ind_rate_list
+
+res_rate_list <- allZipsLoc %>%
+  group_by(ownership) %>%
+  summarise_at(vars(res_rate), list(name = mean))
+
+res_rate_list
+
+box_df <- data.frame(x = vals, 
+                   grp = rep(c("inv owned", "coop", "federal",
+                               "municipal","pol sub", "ret pow mark",
+                               "state"),
+                               each = 3),
+                   subgroup = rep(c("commercial", "industrial",
+                                    "residential")))
+
+# Create grouped barplot using ggplot2
+ggplot(box_df,aes(x = grp, y = x, fill = subgroup)) +
+geom_bar(stat = "identity", position = "dodge")
+```
 Hypothesis Testing
 ```{r}
 library(tidyverse)
