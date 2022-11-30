@@ -1,52 +1,52 @@
-state,mean_elev
-Alabama,451.861
-Alaska,710.563
-Arizona,4213.12
-Arkansas,524.218
-California,2796.36
-Colorado,6860.61
-Connecticut,464.203
-Delaware,44.569
-District of Columbia,125.663
-Florida,58.263
-Georgia,498.368
-Hawaii,2956.55
-Idaho,5231.24
-Illinois,618.707
-Indiana,738.93
-Iowa,1062.98
-Kansas,1906.83
-Kentucky,815.661
-Louisiana,93.497
-Maine,757.451
-Maryland,399.999
-Massachusetts,534.869
-Michigan,771.489
-Minnesota,1198.06
-Mississippi,282.345
-Missouri,844.716
-Montana,4134.57
-Nebraska,2604.78
-Nevada,5527.71
-New Hampshire,1121.31
-New Jersey,227.948
-New Mexico,5771.76
-New York,1045.33
-North Carolina,744.65
-North Dakota,1827.50
-Ohio,891.436
-Oklahoma,1287.86
-Oregon,3520.85
-Pennsylvania,1233.22
-Rhode Island,248.131
-South Carolina,316.708
-South Dakota,2184.60
-Tennessee,938.148
-Texas,1649.20
-Utah,6011.91
-Vermont,1210.00
-Virginia,993.246
-Washington,2280.59
-West Virginia,1657.55
-Wisconsin,1006.09
-Wyoming,6396.12
+state,mean_elev,Abbreviation
+Alabama,451.861,AL
+Alaska,710.563,AK
+Arizona,4213.12,AZ
+Arkansas,524.218,AR
+California,2796.36,CA
+Colorado,6860.61,CO
+Connecticut,464.203,CT
+Delaware,44.569,DE
+District of Columbia,125.663,DC
+Florida,58.263,FL
+Georgia,498.368,GA
+Hawaii,2956.55,HI
+Idaho,5231.24,ID
+Illinois,618.707,IL
+Indiana,738.93,IN
+Iowa,1062.98,IA
+Kansas,1906.83,KS
+Kentucky,815.661,KY
+Louisiana,93.497,LA
+Maine,757.451,ME
+Maryland,399.999,MD
+Massachusetts,534.869,MA
+Michigan,771.489,MI
+Minnesota,1198.06,MN
+Mississippi,282.345,MS
+Missouri,844.716,MO
+Montana,4134.57,MT
+Nebraska,2604.78,NE
+Nevada,5527.71,NV
+New Hampshire,1121.31,NH
+New Jersey,227.948,NJ
+New Mexico,5771.76,NM
+New York,1045.33,NY
+North Carolina,744.65,NC
+North Dakota,1827.50,ND
+Ohio,891.436,OH
+Oklahoma,1287.86,OK
+Oregon,3520.85,OR
+Pennsylvania,1233.22,PA
+Rhode Island,248.131,RI
+South Carolina,316.708,SC
+South Dakota,2184.60,SD
+Tennessee,938.148,TN
+Texas,1649.20,TX
+Utah,6011.91,UT
+Vermont,1210.00,VT
+Virginia,993.246,VA
+Washington,2280.59,WA
+West Virginia,1657.55,WV
+Wisconsin,1006.09,WI
+Wyoming,6396.12,WY
