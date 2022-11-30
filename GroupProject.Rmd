@@ -88,6 +88,33 @@ write.csv(allZipsLoc, "./zipData.csv", row.names = FALSE)
 #TODO: Get a hypothesis for our data before we get too far
 ```
 
++ Mapping state elevation to our dataset (Final Processing)
+```{r,echo=FALSE,eval=FALSE}
+elev <- read.csv(file = "./state_elev.csv")
+allZipsLoc <- read.csv(file = "zipData.csv")
+elev
+allZipsLoc <- mutate(allZipsLoc, elevation = -1)
+
+findAbbrevIndex <- function(x) {
+  for (i in 1:51) {
+    if (elev$Abbreviation[[i]] == x)
+      return(i)
+  }
+  return (-1)
+}
+
+allZipsLoc$elevation[[1]] <- elev$mean_elev[findAbbrevIndex(allZipsLoc$state[1])]
+head(allZipsLoc)
+elev$mean_elev[findAbbrevIndex(elev$state[1])]
+for (i in 1:86628)
+{
+  allZipsLoc$elevation[[i]] <- elev$mean_elev[findAbbrevIndex(allZipsLoc$state[i])]
+}
+head(allZipsLoc)
+write.csv(allZipsLoc, "./masterDataSet.csv")
+
+```
+
 
 Coordinate Heatmap
 ```{r, echo=FALSE, eval=FALSE}
