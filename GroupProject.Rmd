@@ -188,8 +188,17 @@ allZipsLoc %>%
   filter(service_type == "Energy") %>%
   count()
 
-ggplot(data = allZipsLoc, aes(y =  (comm_rate + ind_rate + res_rate)/3)) +
-  geom_boxplot()
+ggplot(data = allZipsLoc, aes(x = elevation, y = res_rate)) +
+  geom_jitter(alpha = 0.05) + geom_smooth(method = "lm", se = FALSE) + ylim(0,0.3) +
+  labs(title = "Residential Electricity Rates over State Mean Elevation",
+       y = "Residential Electricity Rates in $",
+       x = "Mean Elevation of the State")
+
+
+model <- lm(data = allZipsLoc, res_rate ~ elevation)
+summary(model)
+
+
 ```
 
 Boxplots by ownership
