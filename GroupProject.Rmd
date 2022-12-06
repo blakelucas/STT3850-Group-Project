@@ -199,17 +199,33 @@ summary(model)
 model_factor <- lm(data = allZipsLoc, res_rate ~ elevation + service_type)
 summary(model_factor)
 
-boot_dist <- allZipsLoc %>%
+residential <- allZipsLoc %>%
+  mutate(rates = res_rate, indu = FALSE)
+
+industrial <- allZipsLoc %>%
+  mutate(rates = ind_rate, indu = TRUE)
+
+resVsIndustry <- rbind(residential,industrial)
+
+boot_dist <- resVsIndustry %>%
   # Specify the response and success
-  specify(response = res_rate, explanatory = service_type) %>%
+  specify(response = rates, explanatory = indu) %>%
   # Generate 500 bootstrap reps
   generate(reps = 500, type = "bootstrap") %>%
   # Calculate proportions
-  calculate(stat = "correlation")
+  calculate(stat = "diff in means")
 
 boot_dist
 
+SE <- boot_dist %>%
+  summarize(se = sd(stat)) %>%
+  pull()
 
+p_hat <- boot_dist %>%
+  summarize(ph = mean(stat)) %>%
+  pull()
+
+c(p_hat - 2*SE, p_hat + 2*SE)
 
 ```
 
