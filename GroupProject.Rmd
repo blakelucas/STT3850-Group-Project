@@ -183,7 +183,10 @@ ggplot(allZipsLoc, aes(x=res_rate)) +
 
 
 Second ggplot section
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
+allZipsLoc <- read.csv(file = "masterDataSet.csv")
+
+
 allZipsLoc %>%
   filter(service_type == "Energy") %>%
   count()
@@ -195,8 +198,22 @@ ggplot(data = allZipsLoc, aes(x = elevation, y = res_rate)) +
        x = "Mean Elevation of the State")
 
 
-model <- lm(data = allZipsLoc, res_rate ~ elevation)
+model_base <- lm(data = allZipsLoc, res_rate ~ elevation)
 summary(model)
+
+model_factor <- lm(data = allZipsLoc, res_rate ~ elevation + service_type)
+summary(model_factor)
+
+boot_dist <- allZipsLoc %>%
+  # Specify the response and success
+  specify(response = res_rate, explanatory = service_type) %>%
+  # Generate 500 bootstrap reps
+  generate(reps = 500, type = "bootstrap") %>%
+  # Calculate proportions
+  calculate(stat = "correlation")
+
+boot_dist
+
 
 
 ```
