@@ -157,30 +157,25 @@ allZipsLoc <- read.csv(file = "zipData.csv")
 
 # Commercial
 ggplot(allZipsLoc, aes(x=comm_rate)) +
-  geom_histogram(aes(y=..density..), bins=150) +
-  geom_density(alpha=.2, color="dodgerblue1") +
-  geom_vline(aes(xintercept=mean(comm_rate)),
+  geom_histogram(bins=150, fill="#1A4645") +
+  geom_vline(aes(xintercept=mean(res_rate)),
             color="orange", linetype="dashed", size=1) +
-  xlim(.001,.4)
+  xlim(.001,.38)
 
 # Industrial
 ggplot(allZipsLoc, aes(x=ind_rate)) +
-  geom_histogram(bins=150) +
+  geom_histogram(bins=150, fill="#1A4645") +
   geom_vline(aes(xintercept=mean(ind_rate)),
             color="orange", linetype="dashed", size=1) +
   xlim(.001,.4)
 
 # Residential
 ggplot(allZipsLoc, aes(x=res_rate)) +
-  geom_histogram(bins=150) +
+  geom_histogram(bins=150, fill="#1A4645") +
   geom_vline(aes(xintercept=mean(res_rate)),
             color="orange", linetype="dashed", size=1) +
   xlim(.001,.38)
-
-
-
 ```
-
 
 Second ggplot section
 ```{r, echo=FALSE, eval=FALSE}
@@ -236,6 +231,8 @@ ggplot(allZipsLoc, aes(x=ownership, y=res_rate)) +
 
 # -------------------------------------
 
+library(ggthemes)
+
 # Grouped bar plot by ownership
 comm_rate_list <- allZipsLoc %>%
   group_by(ownership) %>%
@@ -277,8 +274,37 @@ Hypothesis Testing
 ```{r}
 library(tidyverse)
 library(infer)
+# Hypothesis: Utility prices increase at higher elevations
 
+```
 
+Mapping avg residential utility prices by state
+```{r}
+library(usmap)
 
+res_rate_states <- allZipsLoc %>%
+  group_by(state) %>%
+  summarise_at(vars(res_rate), list(name = mean))
 
+plot_usmap(data = res_rate_states, values = "name", color = "orange") + 
+  scale_fill_continuous(name = "Mean Residential Utility Prices (2019)",
+                        low = "white", high = "#1A4645", 
+                        label = scales::comma) + 
+  theme(legend.position = "right")
+```
+
+mapping average elevation
+```{r}
+# res_rate_states <- allZipsLoc %>%
+#  group_by(state) %>%
+#  summarise_at(vars(res_rate), list(name = mean))
+
+state_elev <- read.csv(file="state_elev.csv")
+state_elev
+
+plot_usmap(data = state_elev, values = "mean_elev", color = "orange") + 
+  scale_fill_continuous(name = "Mean Elevation",
+                        low = "white", high = "#1A4645", 
+                        label = scales::comma) + 
+  theme(legend.position = "right")
 ```
